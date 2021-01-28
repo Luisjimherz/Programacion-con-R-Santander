@@ -4,8 +4,8 @@
 # lectura de la base de datos en RStudio, si previamente los tenías instalados 
 # omite la instalación, recuerda que solo necesitas realizarla una vez.
 
-# install.packages("DBI")
-# install.packages("RMySQL")
+install.packages("DBI")
+install.packages("RMySQL")
 
 library(DBI)
 library(RMySQL)

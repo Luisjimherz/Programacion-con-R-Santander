@@ -2,7 +2,7 @@
 
 # Comenzaremos instalando los paquetes necesarios para después cargarlos a R
 
-# install.packages("rjson")   #Siempre usar comillas en el nombre del paquete
+install.packages("rjson")   #Siempre usar comillas en el nombre del paquete
 
 library(rjson)            # Quitar comillas del nombre
 
@@ -43,11 +43,11 @@ summary(xmlfile)
 head(xmlfile)
 # También gracias al xmlTreeParse podemos extraer los datos contenidos en el archivo
 
-#Extraer los valores xml
+#Extraer los valores xml como matiz
 topxml <- xmlSApply(xmlfile, function(x) xmlSApply(x, xmlValue))
 
 # Colocandolos en un Data Frame
-xml_df <- data.frame(t(topxml), row.names= NULL)
+(xml_df <- data.frame(t(topxml), row.names= NULL)) #de la transpuesta
 
 str(xml_df) # Observar la naturaleza de las variables del DF
 # Convertiremos incluso las variables de PRICE y YEAR en datos numéricos para 
@@ -67,7 +67,7 @@ head(data_df)
 # Comenzamos instalando el paquete rvest el cual nos permitirá realizar la 
 # lectura de la tabla en el HTML
 
-# install.packages("rvest")
+install.packages("rvest")
 library(rvest)
 # Introducimos una dirección URL donde se encuentre una tabla
 

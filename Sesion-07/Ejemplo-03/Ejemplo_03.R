@@ -6,8 +6,8 @@
 
 # Comenzamos instalando las paqueterías necesarias y cargándolas a R
 
-# install.packages("pool")
-# install.packages("dbplyr")
+install.packages("pool")
+install.packages("dbplyr")
 
 library(dbplyr)
 library(pool)

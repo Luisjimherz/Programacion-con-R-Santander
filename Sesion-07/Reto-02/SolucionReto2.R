@@ -1,34 +1,28 @@
-library(rvest)
 
-theurl <- "https://www.glassdoor.com.mx/Sueldos/data-scientist-sueldo-SRCH_KO0,14.htm"
+# 1. Extraer la tabla del HTML
 
-file<-read_html(theurl)
+url<- "https://www.glassdoor.com.mx/Sueldos/data-scientist-sueldo-SRCH_KO0,14.htm"
 
-tables<-html_nodes(file, "table")
-# Hay que analizar 'tables' para determinar cual es la posiciÃ³n en la lista que contiene la tabla, en este caso es la no. 4 
-
+file<-read_html(url)
+tables <- html_nodes(file, "table")
 table1 <- html_table(tables[1], fill = TRUE)
+(df <- as.data.frame(table1))
+View(df)
 
+# 2. Quitar caracteres innecesarios
+? gsub
+clean <- gsub("MXN","",df$Sueldo)
+clean <- gsub("[^[:alnum:][:blank:]?]", "", clean)
+clean <- gsub("mes", "", clean)
 
-table <- na.omit(as.data.frame(table1))
+# 3. Asignar la colimna como tipo numerico
+(df$Sueldo <- as.numeric(clean))
 
-str(table)
+# ¿Quien paga mas?
+max.value <-  which.max(df$Sueldo)
+df[max.value,]
 
-#Removiendo caracteres inncesarios 
-a <- gsub("MXN","",table$Sueldo)
-a <- gsub("[^[:alnum:][:blank:]?]", "", a)
-a <- gsub("mes", "", a)
-a <- as.numeric(a)
-table$Sueldo <- a
+# ¿Quien paga menos?
+min.value<- which.min(df$Sueldo)
+df[min.value,]
 
-#Removiendo caracteres inncesarios
-b <- gsub("Sueldos para Data Scientist en ", "", table$Cargo)
-table$Cargo <-b
-
-#MÃ¡ximo sueldo
-max.sueldo <- which.max(table$Sueldo)
-table[max.sueldo,]
-
-#MÃ­nimo sueldo
-min.sueldo <- which.min(table$Sueldo)
-table[min.sueldo,]
